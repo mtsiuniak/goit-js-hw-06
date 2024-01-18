@@ -1,60 +1,54 @@
 'use strict';
 
-const getUsersWithFriend = (users, friendName) => users.filter(user => user.friends.includes(friendName))
+class Storage {
 
-const allUsers = [
-  {
-    name: "Moore Hensley",
-    friends: ["Sharron Pace"]
-  },
-  {
-    name: "Sharlene Bush",
-    friends: ["Briana Decker", "Sharron Pace"]
-  },
-  {
-    name: "Ross Vazquez",
-    friends: ["Marilyn Mcintosh", "Padilla Garrison", "Naomi Buckner"]
-  },
-  {
-    name: "Elma Head",
-    friends: ["Goldie Gentry", "Aisha Tran"]
-  },
-  {
-    name: "Carey Barr",
-    friends: ["Jordan Sampson", "Eddie Strong"]
-  },
-  {
-    name: "Blackburn Dotson",
-    friends: ["Jacklyn Lucas", "Linda Chapman"]
-  },
-  {
-    name: "Sheree Anthony",
-    friends: ["Goldie Gentry", "Briana Decker"]
+  #items;
+
+  constructor(items) {
+    this.#items = items;
   }
-];
 
-console.log(getUsersWithFriend(allUsers, "Briana Decker")); 
-// [
-//   {
-//     name: "Sharlene Bush",
-//     friends: ["Briana Decker", "Sharron Pace"]
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"]
-//   }
-// ]
+  getItems() {
+    return this.#items;
+  }
 
-console.log(getUsersWithFriend(allUsers, "Goldie Gentry"));
-// [
-//   {
-//     name: "Elma Head",
-//     friends: ["Goldie Gentry", "Aisha Tran"]
-//   },
-//   {
-//     name: "Sheree Anthony",
-//     friends: ["Goldie Gentry", "Briana Decker"]
-//   }
-// ]
+  addItem(newItem) {
+    this.#items.push(newItem);
+  }
 
-console.log(getUsersWithFriend(allUsers, "Adrian Cross" )); // []
+  removeItem(itemToRemove) {
+
+    
+    // перший спосіб
+    const getIndex = this.#items.indexOf(itemToRemove);
+    if (getIndex > 0) {
+      this.#items.splice(getIndex, 1)
+    } else {
+      console.log("This item do not exist")
+    }
+    
+
+    //  другий спосіб
+    // const newArray = this.#items.filter(item => item !== itemToRemove)
+    // this.#items = newArray;
+    
+
+    // третій спосіб
+    //   const newArray = [];
+    //   for (let i = 0; i < this.#items.length; i++) {
+    //     if (this.#items[i] !== itemToRemove) {
+    //       newArray.push(this.#items[i])
+    //     }
+    //   }
+    //   this.#items = newArray;
+    // }
+
+  }
+}
+
+const storage = new Storage(["Nanitoids", "Prolonger", "Antigravitator"]);
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator"]
+storage.addItem("Droid");
+console.log(storage.getItems()); // ["Nanitoids", "Prolonger", "Antigravitator", "Droid"]
+storage.removeItem("Prolonger");
+console.log(storage.getItems()); // ["Nanitoids", "Antigravitator", "Droid"]
